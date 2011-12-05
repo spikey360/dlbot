@@ -30,10 +30,10 @@ while((lineReadBuffer=in.readLine())!=null){pullURL(lineReadBuffer,param);}
 in.close();
 printList(urlList);
 System.out.println("Filter using?<key1>;<key2>;...");
-String filList=stdin.readLine();//
-String keyList[]=filList.split(";");						 //
-List fg=filter(keyList,urlList);						//
-//List fg=filter(new BufferedReader((new InputStreamReader(System.in))).readLine(),urlList);
+String filList=stdin.readLine();
+String keyList[]=filList.split(";");
+List fg=filter(keyList,urlList);
+
 printList(fg);
 System.out.println("Download? [y]"); String opt="";
 opt=stdin.readLine();
@@ -46,10 +46,10 @@ if(adcom.indexOf(JOINTAG)!=-1){joinURL=true;}
 long mdl=download(fg,opt);
 System.out.println("Done. Downloaded "+mdl+" B");
 }
-//}
+
 }
 
-//public List getList(){return urlList;}
+
 
 private List filter(String s, List x){
 List li=new ArrayList();
@@ -112,14 +112,7 @@ return k;
 }
 
 private String expandURL(String parent, String partialURL){
-/*functional part*/
-//if(partialURL.indexOf("/")!=-1){return partialURL;}
-//else{
-//String p=parent.substring(0,parent.lastIndexOf("/"));
-//return p+"/"+partialURL;
-//}
 
-//return null;
 if(joinURL==true){return parent+partialURL;}
 else return partialURL;
 }
@@ -129,8 +122,7 @@ long master=0;
 for(int i=0;i<s.size();i++){
 String urlSt=expandURL(start.getFile(),(String)(s.get(i)));
 URL dlFile=new URL(urlSt);
-//BufferedReader fileIn=new BufferedReader(new InputStreamReader(dlFile.openStream()));
-//PrintWriter outFile=new PrintWriter(new BufferedWriter(new FileWriter());
+
 DataInputStream fileIn=new DataInputStream(new BufferedInputStream(dlFile.openStream()));
 DataOutputStream outFile=new DataOutputStream(new BufferedOutputStream(new FileOutputStream(path+getExtension(urlSt))));
 long tot=getLength(dlFile);
@@ -142,7 +134,7 @@ while(true){
 try{
 outFile.writeByte(fileIn.readByte());
 downed++;
-//if((canDot(downed,tot))==true){System.out.print(".");}
+
 }catch(EOFException eof){
 fileIn.close();
 outFile.close();
